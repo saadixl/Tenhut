@@ -19,17 +19,21 @@ commandHtml = '<div class="command">
 # Add terminal
 $(".terminal-container").delegate ".add-terminal", "click", ->
     $(this).parent().parent().parent().append terminalHtml
+    $(".delete-terminal").show() if $(".terminal").length > 1
 
 # Delete terminal
 $(".terminal-container").delegate ".delete-terminal", "click", ->
+    return if $(this).parent().parent().parent().find(".terminal").length == 1
     $(this).parent().parent().remove();
 
 # Add command
 $(".terminal-container").delegate ".add-command", "click", ->
     $(commandHtml).insertBefore($(this).parent().parent().find(".control"))
+    $(".delete-command").show() if $(this).parent().parent().find(".command").length > 1
 
 # Delete command
 $(".terminal-container").delegate ".delete-command", "click", ->
+    return if $(this).parent().parent().find(".command").length == 1
     $(this).parent().remove();
 
 # Generate

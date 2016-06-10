@@ -1,14 +1,20 @@
-.terminal{
-    background: #999;
+body{
+    font-family: monospace;
+}
 
+.terminal{
+    background: #f4f1e9;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 30px;
 }
 
 .command{
-    border-bottom: 1px dotted #ddd;
+    padding-bottom: 10px;
 }
 
 .command input{
-    height: 50px;
+    border-radius: 0;
     margin-bottom: 10px;
 }
 
@@ -19,6 +25,7 @@
 
 .control{
     margin-top: 30px;
+    text-align: right;
 }
 
 .control span{
@@ -30,6 +37,11 @@
     text-decoration: underline;
 }
 
+.delete-terminal,
+.delete-command{
+    display: none;
+}
+
 #result{
-    background: #ddd;
+    padding: 20px;
 }

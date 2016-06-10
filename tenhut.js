@@ -7,18 +7,30 @@
   commandHtml = '<div class="command"> <input type="text" class="form-control"> <span class="add-command">Add Command</span> <span class="delete-command">Delete</span> </div>';
 
   $(".terminal-container").delegate(".add-terminal", "click", function() {
-    return $(this).parent().parent().parent().append(terminalHtml);
+    $(this).parent().parent().parent().append(terminalHtml);
+    if ($(".terminal").length > 1) {
+      return $(".delete-terminal").show();
+    }
   });
 
   $(".terminal-container").delegate(".delete-terminal", "click", function() {
+    if ($(this).parent().parent().parent().find(".terminal").length === 1) {
+      return;
+    }
     return $(this).parent().parent().remove();
   });
 
   $(".terminal-container").delegate(".add-command", "click", function() {
-    return $(commandHtml).insertBefore($(this).parent().parent().find(".control"));
+    $(commandHtml).insertBefore($(this).parent().parent().find(".control"));
+    if ($(this).parent().parent().find(".command").length > 1) {
+      return $(".delete-command").show();
+    }
   });
 
   $(".terminal-container").delegate(".delete-command", "click", function() {
+    if ($(this).parent().parent().find(".command").length === 1) {
+      return;
+    }
     return $(this).parent().remove();
   });
 
