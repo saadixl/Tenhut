@@ -36,8 +36,9 @@ $(".terminal-container").delegate ".delete-command", "click", ->
     return if $(this).parent().parent().find(".command").length == 1
     $(this).parent().remove();
 
-# Generate
-$(document).delegate "input", "keyup", ->
+#Generate
+
+generate = () ->
     singleTerminal = "<p>#!/bin/bash</p>"
     $(".terminal").each ->
         singleTerminal += "<p>osascript -e 'tell application \"Terminal\" to do script \""
@@ -49,6 +50,12 @@ $(document).delegate "input", "keyup", ->
     $("#result").empty()
     $("#result").append(singleTerminal)
 
+# Triggers
+
+$(document).delegate "input", "keyup", ->
+    generate()
+
+# Copy to clipboard
 clipboard = new Clipboard('.copy-code');
 new Clipboard('.copy-code', {
      text: (trigger) ->
@@ -57,3 +64,6 @@ new Clipboard('.copy-code', {
              clipboardText += $(this).text() + "\n"
          return clipboardText
 })
+
+$( ".terminal-container, .terminal" ).sortable()
+$( ".terminal-container, .terminal" ).disableSelection()
