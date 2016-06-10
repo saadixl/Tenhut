@@ -48,3 +48,12 @@ $(document).delegate "input", "keyup", ->
         singleTerminal += "\"'</p>"
     $("#result").empty()
     $("#result").append(singleTerminal)
+
+clipboard = new Clipboard('.copy-code');
+new Clipboard('.copy-code', {
+     text: (trigger) ->
+         clipboardText = ""
+         $("#result p").each ->
+             clipboardText += $(this).text() + "\n"
+         return clipboardText
+})
