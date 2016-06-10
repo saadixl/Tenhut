@@ -73,7 +73,10 @@ new Clipboard('.copy-code', {
 })
 
 callSortable = () ->
-    $( ".terminal-container, .command-container" ).sortable()
+    $( ".terminal-container, .command-container" ).sortable({
+            stop: (event, ui) ->
+                generate()
+        })
     $( ".terminal-container, .command-container" ).disableSelection()
 
 callSortable()

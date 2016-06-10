@@ -73,7 +73,11 @@
   });
 
   callSortable = function() {
-    $(".terminal-container, .command-container").sortable();
+    $(".terminal-container, .command-container").sortable({
+      stop: function(event, ui) {
+        return generate();
+      }
+    });
     return $(".terminal-container, .command-container").disableSelection();
   };
 

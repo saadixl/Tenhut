@@ -6,7 +6,7 @@ body{
     background: #f4f1e9;
     margin-top: 15px;
     margin-bottom: 15px;
-    padding: 30px;
+    padding: 20px;
 }
 
 .command{
@@ -44,4 +44,8 @@ body{
 
 #result{
     padding: 20px;
+}
+
+.geenrate-btn{
+    margin-left: 10px;
 }
