@@ -1,12 +1,16 @@
 terminalHtml = '<section class="terminal col-md-12">
-                    <div class="command">
-                        <input type="text" class="form-control">
-                        <span class="add-command">Add Command</span>
-                        <span class="delete-command">Delete</span>
+                    <div class="command-container">
+                        <div class="command">
+                            <input type="text" class="form-control">
+                            <span class="add-command">Add Command</span>
+                            <span class="delete-command">Delete</span>
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                        </div>
                     </div>
                     <div class="control">
                         <span class="add-terminal">Add Terminal</span>
                         <span class="delete-terminal">Delete</span>
+                        <i class="fa fa-arrows-alt" aria-hidden="true"></i>
                     </div>
                 </section>'
 
@@ -14,12 +18,14 @@ commandHtml = '<div class="command">
                 <input type="text" class="form-control">
                 <span class="add-command">Add Command</span>
                 <span class="delete-command">Delete</span>
+                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
                </div>'
 
 # Add terminal
 $(".terminal-container").delegate ".add-terminal", "click", ->
     $(this).parent().parent().parent().append terminalHtml
     $(".delete-terminal").show() if $(".terminal").length > 1
+    callSortable()
 
 # Delete terminal
 $(".terminal-container").delegate ".delete-terminal", "click", ->
@@ -28,8 +34,9 @@ $(".terminal-container").delegate ".delete-terminal", "click", ->
 
 # Add command
 $(".terminal-container").delegate ".add-command", "click", ->
-    $(commandHtml).insertBefore($(this).parent().parent().find(".control"))
+    $(this).parent().parent().append(commandHtml);
     $(".delete-command").show() if $(this).parent().parent().find(".command").length > 1
+    callSortable()
 
 # Delete command
 $(".terminal-container").delegate ".delete-command", "click", ->
@@ -42,7 +49,7 @@ generate = () ->
     singleTerminal = "<p>#!/bin/bash</p>"
     $(".terminal").each ->
         singleTerminal += "<p>osascript -e 'tell application \"Terminal\" to do script \""
-        commandChildren = $(this).children(".command")
+        commandChildren = $(this).find(".command-container").children(".command")
         commandChildren.each (index) ->
             singleTerminal += $(this).find("input").val()
             singleTerminal += " && " if index != commandChildren.length - 1
@@ -65,5 +72,8 @@ new Clipboard('.copy-code', {
          return clipboardText
 })
 
-$( ".terminal-container, .terminal" ).sortable()
-$( ".terminal-container, .terminal" ).disableSelection()
+callSortable = () ->
+    $( ".terminal-container, .command-container" ).sortable()
+    $( ".terminal-container, .command-container" ).disableSelection()
+
+callSortable()
